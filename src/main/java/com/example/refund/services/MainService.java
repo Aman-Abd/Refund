@@ -16,17 +16,17 @@ public class MainService {
     }
 
     public User getUserInfo(int id){
-        String url = "http://localhost:8084/users/" + id;
+        String url = "http://reg-login-service/users/" + id;
         return this.restTemplate.getForObject(url, User.class);
     }
 
     public void updateUser(int id, User user){
-        String url = "http://localhost:8084/users/update/" + user.getId();
+        String url = "http://reg-login-service/users/update/" + user.getId();
         this.restTemplate.postForObject(url, user, String.class);
     }
 
     public Order GetOrderInfo(int id){
-        String url = "http://localhost:8085/orders/" + id;
+        String url = "http://subscription-service/orders/" + id;
         return this.restTemplate.getForObject(url, Order.class);
     }
 }
