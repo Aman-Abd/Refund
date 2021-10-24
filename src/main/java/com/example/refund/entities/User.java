@@ -1,6 +1,12 @@
 package com.example.refund.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
+
+@Getter
+@Setter
 
 public class User {
     private int Id;
@@ -16,53 +22,5 @@ public class User {
         this.money = money;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
-    }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getPassord() {
-        return passord;
-    }
-
-    public void setPassord(String passord) {
-        this.passord = passord;
     }
 }

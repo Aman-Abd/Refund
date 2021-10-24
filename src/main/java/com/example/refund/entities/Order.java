@@ -1,8 +1,14 @@
 package com.example.refund.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
+@Getter
+@Setter
 
 public class Order {
 
@@ -25,45 +31,5 @@ public class Order {
         Date currentDate = new Date();
         TimeZone.setDefault( TimeZone.getTimeZone("UTC"));
         return dateOfValidity.after(currentDate);
-    }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public Date getDateOfValidity() {
-        return dateOfValidity;
-    }
-
-    public void setDateOfValidity(Date dateOfValidity) {
-        this.dateOfValidity = dateOfValidity;
-    }
-
-    public List<String> getSubscriptionType() {
-        return subscriptionType;
-    }
-
-    public void setSubscriptionType(List<String> subscriptionType) {
-        this.subscriptionType = subscriptionType;
     }
 }
