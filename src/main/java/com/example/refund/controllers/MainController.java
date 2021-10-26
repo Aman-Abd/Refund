@@ -4,6 +4,8 @@ import com.example.refund.database.DbService;
 import com.example.refund.entities.Order;
 import com.example.refund.entities.User;
 import com.example.refund.services.MainService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,13 @@ public class MainController {
 
     @PostMapping("{id}")
     @ApiOperation(value = "Method to refund payment", response = List.class)
+    @HystrixCommand(
+            fallbackMethod = "refundFallBack",
+            threadPoolKey = "refund",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            })
     public boolean refund(@PathVariable String id){
         try{
             Order order = mainService.GetOrderInfo(Integer.parseInt(id));
@@ -33,7 +42,11 @@ public class MainController {
             mainService.updateUser(user.getId(), user);
             return true;
         }catch (Exception exception){
-            return true;
+            return false;
         }
+    }
+
+    public boolean refundFallBack(@PathVariable String id){
+        return false;
     }
 }
