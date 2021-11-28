@@ -1,7 +1,10 @@
 package com.example.refund.controllers;
 
+import Notify.Producer;
 import com.example.refund.database.DbService;
 import com.example.refund.entities.Order;
+import com.example.refund.entities.Refund;
+import com.example.refund.entities.RefundRequest;
 import com.example.refund.entities.User;
 import com.example.refund.services.MainService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -20,6 +23,8 @@ import java.util.List;
 public class MainController {
 
     DbService dbService = new DbService();
+
+    private Producer producer;
 
     @Autowired
     MainService mainService;
@@ -40,6 +45,9 @@ public class MainController {
             User user = mainService.getUserInfo(order.getUserId());
             user.setMoney(user.getMoney() + refundAmount);
             mainService.updateUser(user.getId(), user);
+            RefundRequest refundRequest = new RefundRequest(String.valueOf(user.getId()),
+                    new Refund(order.getId() + "", order.getAmount() + "", user.getName(), "Refund"));
+            this.producer.bookRequestNotify(refundRequest);
             return true;
         }catch (Exception exception){
             return false;
